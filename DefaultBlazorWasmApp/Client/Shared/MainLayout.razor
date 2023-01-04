@@ -1,6 +1,8 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.Fast.Components.FluentUI.DesignTokens;
+@inherits LayoutComponentBase
+@inject AccentBaseColor AccentBaseColor
 
-<div class="page">
+<div @ref=container class="page">
     <div class="sidebar">
         <NavMenu />
     </div>
@@ -15,3 +17,16 @@
         </article>
     </main>
 </div>
+
+@code {
+
+    private ElementReference container;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await AccentBaseColor.SetValueFor(container, "#6264A7".ToSwatch());
+        }
+    }
+}
